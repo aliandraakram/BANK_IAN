@@ -1,12 +1,10 @@
 package com.example.bank.service;
 
 import com.example.bank.entity.Nasabah;
-import com.example.bank.model.DaftarNasabahModel;
 import com.example.bank.model.GetNasabahResponseModel;
 import com.example.bank.repository.NasabahRepository;
 import com.example.bank.request.GetNasabahRequest;
 import com.example.bank.response.GetNasabahResponse;
-import org.aspectj.weaver.ast.Literal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -7,6 +7,8 @@ import com.example.bank.response.DaftarNasabahBaruResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class DaftarNasabahBaruService {
 
@@ -19,20 +21,25 @@ public class DaftarNasabahBaruService {
 
         if (request != null){
 
-
-
             try {
-                newNasabah.setNamaLengkap(request.getData().getNamaLengkap());
-                newNasabah.setAlamat(request.getData().getAlamat());
-                newNasabah.setTempatLahir(request.getData().getTempatLahir());
-                newNasabah.setTanggalLahir(request.getData().getTanggalLahir());
-                newNasabah.setNoKtp(request.getData().getNoKtp());
-                newNasabah.setNoHandphone(request.getData().getNoHandphone());
-                nasabahRepository.save(newNasabah);
+                List<Nasabah> listNasabah = nasabahRepository.getNasabahByNoKtp(request.getData().getNoKtp(), 0);
+                if (!listNasabah.isEmpty()){
+                    response.setData(request.getData());
+                    response.setResponseCode("00");
+                    response.setResponseDescription("Nasabah Already Exist");
+                } else{
+                    newNasabah.setNamaLengkap(request.getData().getNamaLengkap());
+                    newNasabah.setAlamat(request.getData().getAlamat());
+                    newNasabah.setTempatLahir(request.getData().getTempatLahir());
+                    newNasabah.setTanggalLahir(request.getData().getTanggalLahir());
+                    newNasabah.setNoKtp(request.getData().getNoKtp());
+                    newNasabah.setNoHandphone(request.getData().getNoHandphone());
+                    nasabahRepository.save(newNasabah);
 
-                response.setData(request.getData());
-                response.setResponseCode("200");
-                response.setResponseDescription("Success");
+                    response.setData(request.getData());
+                    response.setResponseCode("00");
+                    response.setResponseDescription("Success");
+                }
             }catch (Exception e){
                 e.printStackTrace();
                 System.out.println("error messages : " + e.getMessage());
@@ -48,6 +55,6 @@ public class DaftarNasabahBaruService {
         }
 
     return response;
-    };
+    }
 
 }
