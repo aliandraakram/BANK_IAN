@@ -4,11 +4,16 @@ import com.example.bank.entity.Nasabah;
 import com.example.bank.repository.NasabahRepository;
 import com.example.bank.request.DaftarNasabahBaruRequest;
 import com.example.bank.response.DaftarNasabahBaruResponse;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import tools.jackson.databind.ObjectMapper;
 
 import java.util.List;
 
+import static com.example.bank.util.AppUtil.requestResponseToString;
+
+@Slf4j
 @Service
 public class DaftarNasabahBaruService {
 
@@ -19,6 +24,10 @@ public class DaftarNasabahBaruService {
         Nasabah newNasabah = new Nasabah();
         DaftarNasabahBaruResponse response = new DaftarNasabahBaruResponse();
 
+        ObjectMapper mapper = new ObjectMapper();
+
+
+        log.info("Request = {}", requestResponseToString(mapper, request));
         if (request != null){
 
             try {
@@ -53,6 +62,7 @@ public class DaftarNasabahBaruService {
             response.setResponseDescription("request Kosong");
             response.setData(null);
         }
+        log.info("Response = {}", requestResponseToString(mapper, response));
 
     return response;
     }

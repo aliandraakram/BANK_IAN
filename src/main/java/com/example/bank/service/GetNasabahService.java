@@ -5,12 +5,17 @@ import com.example.bank.model.GetNasabahResponseModel;
 import com.example.bank.repository.NasabahRepository;
 import com.example.bank.request.GetNasabahRequest;
 import com.example.bank.response.GetNasabahResponse;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import tools.jackson.databind.ObjectMapper;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.example.bank.util.AppUtil.requestResponseToString;
+
+@Slf4j
 @Service
 public class GetNasabahService {
 
@@ -19,6 +24,10 @@ public class GetNasabahService {
 
     public GetNasabahResponse inquiry (GetNasabahRequest request){
         GetNasabahResponse response = new GetNasabahResponse();
+        ObjectMapper mapper = new ObjectMapper();
+
+
+        log.info("Request = {}", requestResponseToString(mapper, request));
         if (request != null){
 
             try {
@@ -36,6 +45,7 @@ public class GetNasabahService {
             }
 
         }
+        log.info("Response = {}", requestResponseToString(mapper, response));
         return response;
     }
 

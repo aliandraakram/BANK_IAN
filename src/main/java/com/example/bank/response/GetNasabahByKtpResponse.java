@@ -7,6 +7,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
@@ -19,5 +21,5 @@ public class GetNasabahByKtpResponse {
     private String responseDescription;
 
     @JsonProperty("data")
-    private GetNasabahByKtpResponseModel data;
+    private List<GetNasabahByKtpResponseModel> data;
 }

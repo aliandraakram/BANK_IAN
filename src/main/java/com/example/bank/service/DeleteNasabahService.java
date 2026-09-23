@@ -6,11 +6,16 @@ import com.example.bank.repository.NasabahRepository;
 import com.example.bank.request.DeleteNasabahRequest;
 import com.example.bank.response.DeleteNasabahResponse;
 import jakarta.transaction.Transactional;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import tools.jackson.databind.ObjectMapper;
 
 import java.util.List;
 
+import static com.example.bank.util.AppUtil.requestResponseToString;
+
+@Slf4j
 @Service
 public class DeleteNasabahService {
 
@@ -20,7 +25,9 @@ public class DeleteNasabahService {
     @Transactional
     public DeleteNasabahResponse inquiry (DeleteNasabahRequest request){
         DeleteNasabahResponse response = new DeleteNasabahResponse();
+        ObjectMapper mapper = new ObjectMapper();
 
+        log.info("Request : {}", requestResponseToString(mapper, request));
         if (request != null){
             try {
                 List<Nasabah> listNasabah = nasabahRepository.getNasabahByNoKtp(request.getData().getNoKtp(),0);
@@ -57,6 +64,7 @@ public class DeleteNasabahService {
                 response.setData(null);
             }
         }
+        log.info("Response : {}", requestResponseToString(mapper, response));
         return response;
     }
 }

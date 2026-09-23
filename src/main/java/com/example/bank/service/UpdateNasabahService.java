@@ -9,8 +9,11 @@ import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import tools.jackson.databind.ObjectMapper;
 
 import java.util.List;
+
+import static com.example.bank.util.AppUtil.requestResponseToString;
 
 @Slf4j
 @Service
@@ -22,7 +25,10 @@ public class UpdateNasabahService {
     @Transactional
     public UpdateNasabahResponse inquiry(UpdateNasabahRequest request){
         UpdateNasabahResponse response = new UpdateNasabahResponse();
+        ObjectMapper mapper = new ObjectMapper();
 
+
+        log.info("Request : {}", requestResponseToString(mapper, request));
         if (request != null){
             try {
                 List<Nasabah> listNasabah = nasabahRepository.getNasabahByNoKtp(request.getData().getNoKtp(), 0);
@@ -47,7 +53,7 @@ public class UpdateNasabahService {
                         response.setResponseDescription("Success");
                         response.setData(request.getData());
                     } else{
-                        System.out.println("Perubahan Gagal");
+                        System.out.println("Edit Failed");
                     }
 
                 }
@@ -57,6 +63,7 @@ public class UpdateNasabahService {
                 response.setData(null);
             }
         }
+        log.info("Response : {}", requestResponseToString(mapper, response));
         return response;
     }
 }

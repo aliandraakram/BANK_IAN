@@ -1,13 +1,10 @@
 package com.example.bank.controller;
-import com.example.bank.model.GetNasabahResponseModel;
 import com.example.bank.request.*;
 import com.example.bank.response.*;
 import com.example.bank.service.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
 
 @RestController
 @RequestMapping("api/nasabah")
